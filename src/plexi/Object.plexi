@@ -1,0 +1,28 @@
+module "internal" {
+    def ObjectWrap = InternalBinding("OBJECT_WRAP");
+
+    typedef Object = InternalBinding("ANY_TYPE");
+
+    cdef Object {
+    static create(>Object val = null): {
+            if(typeof(val) == typeof(Object)): {
+                return clone(val);
+            } else if(typeof(val) == typeof(String)): {
+                return String(val);
+            } else if(typeof(val) == typeof(Number)): {
+                return Number(val);
+            } else {
+                return {};
+            }
+        }
+    }
+    toString() {
+        return ObjectWrap.ToString{this}();
+    }
+    entries() {
+        return Iterator(ObjectWrap.EntriesIterator());
+    }
+    hasOwnProperty(>String prop) {
+        return ObjectWrap.HasOwnProperty{this}(prop);
+    }
+}

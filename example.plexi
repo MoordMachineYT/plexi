@@ -1,0 +1,49 @@
+def str('value') String;
+log(str);
+def str2 = String('value');
+
+// one-line comment
+
+/*
+multi-line comment
+*/
+
+if(str == str2): {
+    log("str = str2");
+}
+
+def num(32) i8;
+log(num);
+
+log(typeof(str) + " " + typeof(num));
+
+mdef double(>Number num): {
+    return 2*num;
+};
+
+log(double(15));
+
+cdef Class: {
+    str = String;
+    num = i8;
+    smth = Object;
+    constructor(>String str3>i8 num): {
+        this.str = str3;
+        this.num = num;
+    }
+    log(): {
+        log(this.str, this.num);
+    }
+    logSomethingElse(>Object smth): {
+        log(smth);
+    }
+};
+def object("value", 32) Class;
+def object2 = Class("value", 30); // Required for a function inside an array
+
+// function.prototype.bind in js
+def func = object.log{object2}; // not executed
+func();
+// or
+def func2 = object.logSomethingElse{object2, "smth"}; // parameters to bind the function with
+func2();
