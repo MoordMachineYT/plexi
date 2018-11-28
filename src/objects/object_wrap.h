@@ -18,12 +18,12 @@ namespace plexi {
     
     class ObjectWrap {
     public:
-        string constructor;
+        Object* constructor;
         map<string, shared_ptr<Object>>* values; // heap
-        ObjectWrap(string = "Object");
+        ObjectWrap(Object);
         string* ToString();
         bool HasOwnProperty(string&);
-        void SetProp(string&, Object*);
+        void SetProp(string&);
         bool DeleteProp(string&);
     };
 }

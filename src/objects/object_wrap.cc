@@ -4,8 +4,9 @@ using namespace plexi;
 
 using std::pair;
 
-ObjectWrap::ObjectWrap(string constructor) {
+ObjectWrap::ObjectWrap(Object* constructor) {
     this->values = new map<string, shared_ptr<Object>>;
+    this->constructor = constructor;
 }
 
 string* ObjectWrap::ToString() {
@@ -31,8 +32,8 @@ bool ObjectWrap::HasOwnProperty(string& prop) {
     return values->find(prop) != values->end();
 }
 
-void ObjectWrap::SetProp(string& prop, Object* obj) {
-    this->values->insert(pair<string, shared_ptr<Object>>(prop, shared_ptr<Object>(obj)));
+void ObjectWrap::SetProp(string& prop) {
+    this->values->insert(pair<string, shared_ptr<Object>>(prop, shared_ptr<Object>(this->constructor)));
 }
 
 bool ObjectWrap::DeleteProp(string& prop) {
